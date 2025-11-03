@@ -3,7 +3,7 @@ import pygame
 from plugins.core import EventManager, GameNode
 
 from .ui import UI
-from .ui_state import UiStateManager
+from .ui_state import UiEventData, UiStateManager
 
 
 class UiManager(GameNode):
@@ -18,8 +18,8 @@ class UiManager(GameNode):
     def children(self) -> list[UI]:
         return self.state.children
 
-    def register(self, ui_name: str, ui: type[UI]):
-        self.state.register(ui_name, ui)
+    def register(self, data: UiEventData):
+        self.state.register(data)
 
     def handle_event(self, event: pygame.event.Event):
         for child in self.children:
