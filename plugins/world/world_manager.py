@@ -7,7 +7,7 @@ import structlog
 from plugins.core import EventManager, GameNode
 
 from .components import EnemyTag, PlayerTag, Position, Sprite, Velocity
-from .systems import RenderSystem
+from .systems import MovementSystem, PlayerControlSystem, RenderSystem
 from .world_component_manager import WorldComponentManager
 
 logger = structlog.get_logger()
@@ -20,6 +20,8 @@ class WorldEvent(Enum):
 
 SYSTEM = {
     "RenderSystem": RenderSystem,
+    "PlayerControlSystem": PlayerControlSystem,
+    "MovementSystem": MovementSystem,
 }
 
 COMPONENT = {

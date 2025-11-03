@@ -1,5 +1,7 @@
 {
-  "AddSystems": { "systems": ["RenderSystem"] },
+  "AddSystems": {
+    "systems": ["RenderSystem", "PlayerControlSystem", "MovementSystem"]
+  },
   "AddEntities": {
     "entities": [
       {
