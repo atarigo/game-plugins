@@ -66,3 +66,88 @@ class DebugPanel(GameNode):
         )
         screen.blit(fps_text, (info_box_x + 15, y_offset))
         y_offset += 30
+
+        # Section: Scene Manager
+        section_title = self.font_normal.render(
+            "Scene Manager", True, (255, 200, 200)
+        )
+        screen.blit(section_title, (info_box_x + 15, y_offset))
+        y_offset += 25
+
+        # Registered scenes
+        registered_scenes = list(scene_manager.state.registry.keys())
+        reg_text = self.font_small.render(
+            f"Registered: {len(registered_scenes)}", True, (250, 250, 250)
+        )
+        screen.blit(reg_text, (info_box_x + 20, y_offset))
+        y_offset += 20
+
+        # List registered scenes
+        for scene_name in registered_scenes:
+            scene_text = self.font_small.render(
+                f"  - {scene_name}", True, (220, 220, 220)
+            )
+            screen.blit(scene_text, (info_box_x + 25, y_offset))
+            y_offset += 18
+
+        y_offset += 5
+
+        # Active scenes
+        active_scenes = scene_manager.children
+        active_text = self.font_small.render(
+            f"Active: {len(active_scenes)}", True, (250, 250, 250)
+        )
+        screen.blit(active_text, (info_box_x + 20, y_offset))
+        y_offset += 20
+
+        # List active scenes
+        for scene in active_scenes:
+            scene_class_name = scene.__class__.__name__
+            status = " (paused)" if scene.paused else ""
+            scene_text = self.font_small.render(
+                f"  - {scene_class_name}{status}", True, (220, 220, 220)
+            )
+            screen.blit(scene_text, (info_box_x + 25, y_offset))
+            y_offset += 18
+
+        y_offset += 10
+
+        # Section: UI Manager
+        section_title = self.font_normal.render("UI Manager", True, (255, 200, 200))
+        screen.blit(section_title, (info_box_x + 15, y_offset))
+        y_offset += 25
+
+        # Registered UIs
+        registered_uis = list(ui_manager.state.registry.keys())
+        reg_ui_text = self.font_small.render(
+            f"Registered: {len(registered_uis)}", True, (250, 250, 250)
+        )
+        screen.blit(reg_ui_text, (info_box_x + 20, y_offset))
+        y_offset += 20
+
+        # List registered UIs
+        for ui_name in registered_uis:
+            ui_text = self.font_small.render(
+                f"  - {ui_name}", True, (220, 220, 220)
+            )
+            screen.blit(ui_text, (info_box_x + 25, y_offset))
+            y_offset += 18
+
+        y_offset += 5
+
+        # Active UIs
+        active_uis = ui_manager.children
+        active_ui_text = self.font_small.render(
+            f"Active: {len(active_uis)}", True, (250, 250, 250)
+        )
+        screen.blit(active_ui_text, (info_box_x + 20, y_offset))
+        y_offset += 20
+
+        # List active UIs
+        for ui in active_uis:
+            ui_class_name = ui.__class__.__name__
+            ui_text = self.font_small.render(
+                f"  - {ui_class_name}", True, (220, 220, 220)
+            )
+            screen.blit(ui_text, (info_box_x + 25, y_offset))
+            y_offset += 18
