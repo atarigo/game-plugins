@@ -1,5 +1,14 @@
+import structlog
+
+from plugins.core.logger_config import configure
+
+logger = structlog.getLogger(__name__)
+
+
 def main():
-    print("Hello from game-plugins!")
+    configure()
+
+    logger.debug("Hello from game-plugins!")
 
 
 if __name__ == "__main__":
