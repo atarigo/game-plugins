@@ -1,14 +1,21 @@
 import pygame
 
 from plugins.core import EventManager
+from plugins.scene import SceneManager
 
 from .game_state import GameEvent, GameState, GameStateManager
 
 
 class GameClient:
-    def __init__(self, screen: pygame.Surface, event_manager: EventManager):
+    def __init__(
+        self,
+        screen: pygame.Surface,
+        event_manager: EventManager,
+        scene_manager: SceneManager,
+    ):
         self.screen = screen
         self.event_manager = event_manager
+        self.scene_manager = scene_manager
 
         self.state = GameStateManager(event_manager)
         self.clock = pygame.time.Clock()
@@ -27,10 +34,14 @@ class GameClient:
             if event.type == pygame.QUIT:
                 self.event_manager.emit(GameEvent.Quit)
 
+            self.scene_manager.handle_event(event)
+
     def update(self, dt):
-        pass
+        self.scene_manager.update(dt)
 
     def render(self):
         self.screen.fill((0, 0, 0))
+
+        self.scene_manager.render(self.screen)
 
         pygame.display.flip()
