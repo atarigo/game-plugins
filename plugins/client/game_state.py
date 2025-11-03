@@ -1,4 +1,3 @@
-import time
 from enum import Enum
 
 from plugins.core import EventManager
@@ -26,17 +25,16 @@ class GameStateManager:
         self.event_manager.subscribe(GameEvent.Resume, self.resume)
         self.event_manager.subscribe(GameEvent.Quit, self.quit)
 
-    def pause(self):
+    def pause(self, *args, **kwargs):
         if self.current == GameState.Running:
             self.current = GameState.Paused
 
-    def resume(self):
+    def resume(self, *args, **kwargs):
         if self.current == GameState.Paused:
             self.current = GameState.Running
 
-    def quit(self):
+    def quit(self, *args, **kwargs):
         if self.current == GameState.Saving:
-            time.sleep(0.5)
             self.event_manager.emit(GameEvent.Quit)
         else:
             self.current = GameState.Quitting
