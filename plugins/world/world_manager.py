@@ -6,7 +6,7 @@ import structlog
 
 from plugins.core import EventManager, GameNode
 
-from .components import Position, Sprite, Velocity
+from .components import EnemyTag, PlayerTag, Position, Sprite, Velocity
 from .systems import RenderSystem
 from .world_component_manager import WorldComponentManager
 
@@ -26,6 +26,8 @@ COMPONENT = {
     "Position": Position,
     "Velocity": Velocity,
     "Sprite": Sprite,
+    "PlayerTag": PlayerTag,
+    "EnemyTag": EnemyTag,
 }
 
 
