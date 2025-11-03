@@ -21,12 +21,18 @@ class SceneManager(GameNode):
 
     def handle_event(self, event: pygame.event.Event):
         for child in self.children:
+            if child.paused:
+                continue
             child.handle_event(event)
 
     def update(self, dt: float):
         for child in self.children:
+            if child.paused:
+                continue
             child.update(dt)
 
     def render(self, screen: pygame.Surface):
         for child in self.children:
+            if child.paused:
+                continue
             child.render(screen)

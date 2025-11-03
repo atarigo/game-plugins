@@ -1,7 +1,7 @@
 import pygame
 import structlog
 
-from example.scene import CityScene, MenuScene
+from example.scene import CityScene, CityStoreScene, MenuScene
 from plugins.client import GameClient
 from plugins.core import EventManager
 from plugins.core.logger_config import configure
@@ -26,6 +26,7 @@ def main():
     scene_manager = SceneManager(event_manager=event_manager)
     scene_manager.register("Menu", MenuScene)
     scene_manager.register("City", CityScene)
+    scene_manager.register("CityStore", CityStoreScene)
 
     try:
         event_manager.emit(SceneEvent.SwitchTo, "Menu")
