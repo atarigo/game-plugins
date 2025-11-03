@@ -3,6 +3,7 @@ import pygame
 from plugins.core import GameNode
 from plugins.scene import SceneManager
 from plugins.ui import UiManager
+from plugins.world import WorldManager
 
 
 class DebugPanel(GameNode):
@@ -18,7 +19,11 @@ class DebugPanel(GameNode):
             self.fps = 1.0 / dt
 
     def render(
-        self, screen: pygame.Surface, scene_manager: SceneManager, ui_manager: UiManager
+        self,
+        screen: pygame.Surface,
+        scene_manager: SceneManager,
+        ui_manager: UiManager,
+        world_manager: WorldManager,
     ):
         screen_width = screen.get_width()
         screen_height = screen.get_height()
@@ -68,9 +73,7 @@ class DebugPanel(GameNode):
         y_offset += 30
 
         # Section: Scene Manager
-        section_title = self.font_normal.render(
-            "Scene Manager", True, (255, 200, 200)
-        )
+        section_title = self.font_normal.render("Scene Manager", True, (255, 200, 200))
         screen.blit(section_title, (info_box_x + 15, y_offset))
         y_offset += 25
 
@@ -127,9 +130,7 @@ class DebugPanel(GameNode):
 
         # List registered UIs
         for ui_name in registered_uis:
-            ui_text = self.font_small.render(
-                f"  - {ui_name}", True, (220, 220, 220)
-            )
+            ui_text = self.font_small.render(f"  - {ui_name}", True, (220, 220, 220))
             screen.blit(ui_text, (info_box_x + 25, y_offset))
             y_offset += 18
 
@@ -150,4 +151,48 @@ class DebugPanel(GameNode):
                 f"  - {ui_class_name}", True, (220, 220, 220)
             )
             screen.blit(ui_text, (info_box_x + 25, y_offset))
+            y_offset += 18
+
+        y_offset += 10
+
+        # Section: World Manager
+        section_title = self.font_normal.render("World Manager", True, (255, 200, 200))
+        screen.blit(section_title, (info_box_x + 15, y_offset))
+        y_offset += 25
+
+        # Components
+        component_types = list(world_manager.component_manager.components.keys())
+        comp_text = self.font_small.render(
+            f"Components: {len(component_types)}", True, (250, 250, 250)
+        )
+        screen.blit(comp_text, (info_box_x + 20, y_offset))
+        y_offset += 20
+
+        # List component types
+        for comp_type in component_types:
+            comp_name = comp_type.__name__
+            comp_count = len(world_manager.component_manager.components[comp_type])
+            comp_detail = self.font_small.render(
+                f"  - {comp_name} ({comp_count})", True, (220, 220, 220)
+            )
+            screen.blit(comp_detail, (info_box_x + 25, y_offset))
+            y_offset += 18
+
+        y_offset += 5
+
+        # Systems
+        systems = list(world_manager.systems)
+        sys_text = self.font_small.render(
+            f"Systems: {len(systems)}", True, (250, 250, 250)
+        )
+        screen.blit(sys_text, (info_box_x + 20, y_offset))
+        y_offset += 20
+
+        # List systems
+        for system in systems:
+            system_name = system.__class__.__name__
+            sys_detail = self.font_small.render(
+                f"  - {system_name}", True, (220, 220, 220)
+            )
+            screen.blit(sys_detail, (info_box_x + 25, y_offset))
             y_offset += 18

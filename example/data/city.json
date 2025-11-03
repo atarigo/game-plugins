@@ -1,0 +1,31 @@
+{
+  "AddSystems": { "systems": ["RenderSystem"] },
+  "AddEntities": {
+    "entities": [
+      {
+        "components": {
+          "Sprite": {},
+          "Position": { "x": 140, "y": 140 },
+          "Velocity": { "dx": 0, "dy": 0 },
+          "Label": { "value": "Player" }
+        }
+      },
+      {
+        "components": {
+          "Sprite": {},
+          "Position": { "x": 240, "y": 140 },
+          "Velocity": { "dx": 0, "dy": 0 },
+          "Label": { "value": "Enemy" }
+        }
+      },
+      {
+        "components": {
+          "Sprite": {},
+          "Position": { "x": 340, "y": 140 },
+          "Velocity": { "dx": 0, "dy": 0 },
+          "Label": { "value": "Enemy" }
+        }
+      }
+    ]
+  }
+}
