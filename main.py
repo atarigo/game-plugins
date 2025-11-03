@@ -6,6 +6,7 @@ from plugins.client import GameClient
 from plugins.core import EventManager
 from plugins.core.logger_config import configure
 from plugins.scene import SceneEvent, SceneManager
+from plugins.ui import UiManager
 
 logger = structlog.getLogger(__name__)
 
@@ -28,11 +29,13 @@ def main():
     scene_manager.register("City", CityScene)
     scene_manager.register("CityStore", CityStoreScene)
 
+    ui_manager = UiManager(event_manager=event_manager)
+
     try:
         event_manager.emit(SceneEvent.SwitchTo, "Menu")
 
         screen = pygame.display.get_surface()
-        client = GameClient(screen, event_manager, scene_manager)
+        client = GameClient(screen, event_manager, scene_manager, ui_manager)
         client.run()
     finally:
         event_manager.clear()

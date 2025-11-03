@@ -1,8 +1,12 @@
 from enum import Enum
 
+import structlog
+
 from plugins.core import EventManager
 
 from .scene import Scene
+
+logger = structlog.get_logger()
 
 
 class SceneEvent(Enum):
@@ -25,13 +29,19 @@ class SceneStateManager:
     def register(self, scene_name: str, scene: type[Scene]):
         self.registry[scene_name] = scene
 
+        logger.debug("[Scene]", action="register", name=scene_name, cls=scene)
+
     def switch_to(self, scene_name: str):
+        logger.debug("[Scene]", action="switch_to", name=scene_name)
+
         scene_class = self.registry.get(scene_name)
         if scene_class:
             self.children.clear()
             self.children.append(scene_class(self.event_manager))
 
     def append(self, scene_name: str):
+        logger.debug("[Scene]", action="append", name=scene_name)
+
         scene_class = self.registry.get(scene_name)
         if scene_class:
             for child in self.children:
@@ -39,6 +49,13 @@ class SceneStateManager:
             self.children.append(scene_class(self.event_manager))
 
     def pop(self, *args, **kwargs):
+        logger.debug("[Scene]", action="pop")
+
+        if len(self.children) == 1:
+            return
+
         if self.children:
             self.children.pop()
+
+        if self.children:
             self.children[-1].paused = False
