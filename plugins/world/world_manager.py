@@ -6,8 +6,27 @@ import structlog
 
 from plugins.core import EventManager, GameNode
 
-from .components import EnemyTag, PlayerTag, Position, Sprite, Velocity
-from .systems import MovementSystem, PlayerControlSystem, RenderSystem
+from .components import (
+    Animation,
+    AnimationFrame,
+    AnimationState,
+    Attack,
+    AttackSprite,
+    AttackType,
+    Direction,
+    EnemyTag,
+    PlayerTag,
+    Position,
+    Sprite,
+    Velocity,
+)
+from .systems import (
+    AnimationSystem,
+    AttackSystem,
+    MovementSystem,
+    PlayerControlSystem,
+    RenderSystem,
+)
 from .world_component_manager import WorldComponentManager
 
 logger = structlog.get_logger()
@@ -22,6 +41,8 @@ SYSTEM = {
     "RenderSystem": RenderSystem,
     "PlayerControlSystem": PlayerControlSystem,
     "MovementSystem": MovementSystem,
+    "AnimationSystem": AnimationSystem,
+    "AttackSystem": AttackSystem,
 }
 
 COMPONENT = {
@@ -30,6 +51,13 @@ COMPONENT = {
     "Sprite": Sprite,
     "PlayerTag": PlayerTag,
     "EnemyTag": EnemyTag,
+    "Animation": Animation,
+    "AnimationFrame": AnimationFrame,
+    "AnimationState": AnimationState,
+    "Direction": Direction,
+    "Attack": Attack,
+    "AttackType": AttackType,
+    "AttackSprite": AttackSprite,
 }
 
 

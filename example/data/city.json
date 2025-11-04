@@ -1,6 +1,6 @@
 {
   "AddSystems": {
-    "systems": ["RenderSystem", "PlayerControlSystem", "MovementSystem"]
+    "systems": ["RenderSystem", "PlayerControlSystem", "MovementSystem", "AnimationSystem", "AttackSystem"]
   },
   "AddEntities": {
     "entities": [
@@ -10,7 +10,12 @@
           "Position": { "x": 140, "y": 140 },
           "Velocity": { "dx": 0, "dy": 0 },
           "Label": { "value": "Player" },
-          "PlayerTag": {}
+          "PlayerTag": {},
+          "Attack": {
+            "type": "Ranged",
+            "sound_path": "example/asset/audio/gun-shooting.mp3",
+            "cooldown": 0.5
+          }
         }
       },
       {

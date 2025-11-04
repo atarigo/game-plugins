@@ -15,6 +15,16 @@ class PlayerControlSystem(GameNode):
         self.event = event_manager
         self.world = world_manager
 
+    def handle_event(self, event: pygame.event.Event) -> None:
+        """處理按鍵事件 (攻擊觸發)"""
+        from .attack_system import AttackEvent
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                # 空白鍵觸發攻擊
+                for entity_id in self.world.get_entities_with(PlayerTag):
+                    self.event.emit(AttackEvent.Trigger, {"trigger_id": entity_id})
+
     def update(self, dt: float) -> None:
         keys = pygame.key.get_pressed()
 
